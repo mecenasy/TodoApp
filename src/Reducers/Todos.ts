@@ -1,6 +1,6 @@
+import { v4 } from 'node-uuid';
 import { Action } from 'redux';
 import { Todo } from '../Types/TodoStore';
-
 type KnownAction = AddTooAction | ToggleTodoAction;
 
 interface AddTooAction {
@@ -19,7 +19,7 @@ const todo = (action: Action, state?: Todo) => {
         case 'ADD_TODO':
             return {
                 completed: false,
-                id: incomingAction.id,
+                id: v4(),
                 text: incomingAction.text,
             };
         case 'TOGGLE_TODO':

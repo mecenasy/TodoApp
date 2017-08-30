@@ -1,22 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { combineReducers, createStore } from 'redux';
-import App from './App';
+import Root from './Componet/Root';
 import './index.css';
-import { todos } from './Reducers/Todos';
-import { filter } from './Reducers/Visible';
 import registerServiceWorker from './registerServiceWorker';
+import configureStore from './Store/configureStore';
 
-const todoApp = combineReducers({
-  filter,
-  todos,
-});
-const store = createStore(todoApp);
+const store = configureStore();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Root store={store}/>,
   document.getElementById('root') as HTMLElement);
 registerServiceWorker();

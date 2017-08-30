@@ -13,6 +13,7 @@ export default class VisivleTodo extends React.Component<{}, {}> {
         );
     }
 }
+
 const getVisibileFilter = (todos: Todo[], filter: string) => {
     switch (filter) {
         case 'SHOW_ALL':
@@ -24,6 +25,7 @@ const getVisibileFilter = (todos: Todo[], filter: string) => {
     }
     return todos;
 };
+
 const toggleTodo = (id: number) => {
     return {
         id,
