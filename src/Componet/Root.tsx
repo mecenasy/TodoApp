@@ -7,13 +7,12 @@ interface IRoot {
     store: any
 }
 export default class Root extends React.Component<IRoot, {}> {
-
     public render() {
-        let history = createBrowserHistory();
+        const history = createBrowserHistory();
         return (
             <Provider store={this.props.store}>
                 <Router history={history}>
-                    <Route path='/' component={App} />
+                    <Route path='/:filter?' component={App} />
                 </Router>
             </Provider>
         );
