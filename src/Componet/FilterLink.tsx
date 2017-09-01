@@ -14,8 +14,9 @@ export default class FilterLink extends React.Component<IFilterLink, {}> {
         return (
             <NavLink
                 exact
-                to={filter === 'all' ? '' : '/' + filter}
-                activeStyle={{ textDecoration: 'none', color: 'blue' }}>
+                to={filter === 'all' ? '/' : '/' + filter}
+                activeStyle={{ textDecoration: 'none', color: 'blue' }}
+            >
                 {children}
             </NavLink>
         );

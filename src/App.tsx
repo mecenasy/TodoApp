@@ -8,7 +8,7 @@ const App = (params: any) => {
   return(
   <div>
     <AddTodo />
-    <VisivleTodo filter={params.match.params.filter}/>
+    <VisivleTodo filter={params.match.params.filter || 'all'}/>
     <Footer />
   </div>
   );

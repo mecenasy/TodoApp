@@ -16,8 +16,6 @@ export default class VisivleTodo extends React.Component<IVisibleTodo, {}> {
 }
 
 const getVisibileFilter = (todos: Todo[], filter: string) => {
-    console.log(filter);
-
     switch (filter) {
         case 'all':
             return todos;
