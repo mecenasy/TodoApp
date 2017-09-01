@@ -15,6 +15,13 @@ export default class VisivleTodo extends React.Component<{}, {}> {
     }
 }
 
+const toggleTodo = (id: number) => {
+    return {
+        id,
+        type: 'TOGGLE_TdfsdfsdfODO',
+    };
+};
+
 const getVisibileFilter = (todos: Todo[], filter: string) => {
     switch (filter) {
         case 'all':
@@ -26,13 +33,6 @@ const getVisibileFilter = (todos: Todo[], filter: string) => {
 
     }
     return todos;
-};
-
-const toggleTodo = (id: number) => {
-    return {
-        id,
-        type: 'TOGGLE_TODO',
-    };
 };
 
 const mapsStateToProps = (state: any, ownProps: any) => {
