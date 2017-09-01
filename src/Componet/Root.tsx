@@ -8,7 +8,7 @@ interface IRoot {
 }
 export default class Root extends React.Component<IRoot, {}> {
     public render() {
-        let history = createBrowserHistory();
+        const history = createBrowserHistory();
         return (
             <Provider store={this.props.store}>
                 <Router history={history}>

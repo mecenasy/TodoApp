@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { Todo } from '../Types/TodoStore';
 import TodoList from './TodoList';
-
-interface IVisibleTodo {
-    filter: string;
-}
-export default class VisivleTodo extends React.Component<IVisibleTodo, {}> {
+// interface IVisibleTodo {
+//     filter: string;
+// }
+export default class VisivleTodo extends React.Component<{}, {}> {
 
     public render() {
         return (
-            <VisivleTodoList filter={this.props.filter}/>
+            <VisivleTodoList />
         );
     }
 }
@@ -39,7 +39,7 @@ const mapsStateToProps = (state: any, ownProps: any) => {
     return {
         todos: getVisibileFilter(
             state.todos,
-            ownProps.filter),
+            ownProps.match.params.filter || 'all'),
     };
 };
 
@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch: any) => {
     };
 };
 
-const VisivleTodoList = connect(
+const VisivleTodoList = withRouter(connect(
     mapsStateToProps,
     mapDispatchToProps,
-)(TodoList);
+)(TodoList));

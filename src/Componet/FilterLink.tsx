@@ -13,7 +13,7 @@ export default class FilterLink extends React.Component<IFilterLink, {}> {
         } = this.props;
         return (
             <NavLink
-                exact
+                exact={true}
                 to={filter === 'all' ? '/' : '/' + filter}
                 activeStyle={{ textDecoration: 'none', color: 'blue' }}
             >
