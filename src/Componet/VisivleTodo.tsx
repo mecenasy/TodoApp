@@ -3,25 +3,29 @@ import { connect } from 'react-redux';
 import { Todo } from '../Types/TodoStore';
 import TodoList from './TodoList';
 
-export default class VisivleTodo extends React.Component<{}, {}> {
+interface IVisibleTodo {
+    filter: string;
+}
+export default class VisivleTodo extends React.Component<IVisibleTodo, {}> {
+
     public render() {
         return (
-            <div>
-                <VisivleTodoList />
-            </div>
-
+            <VisivleTodoList filter={this.props.filter}/>
         );
     }
 }
 
 const getVisibileFilter = (todos: Todo[], filter: string) => {
+    console.log(filter);
+
     switch (filter) {
-        case 'SHOW_ALL':
+        case 'all':
             return todos;
-        case 'SHOW_COMPLITED':
+        case 'completed':
             return todos.filter((t: Todo) => t.completed);
-        case 'SHOW_ACTIVE':
+        case 'active':
             return todos.filter((t: Todo) => !t.completed);
+
     }
     return todos;
 };
@@ -33,11 +37,11 @@ const toggleTodo = (id: number) => {
     };
 };
 
-const mapsStateToProps = (state: any) => {
+const mapsStateToProps = (state: any, ownProps: any) => {
     return {
         todos: getVisibileFilter(
             state.todos,
-            state.filter),
+            ownProps.filter),
     };
 };
 
