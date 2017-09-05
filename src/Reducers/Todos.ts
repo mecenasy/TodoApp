@@ -56,3 +56,16 @@ export const todos = (state: Todo[], action: Action) => {
         }
     }
 };
+
+export const getVisibileFilter = (state: Todo[], filter: string) => {
+    switch (filter) {
+        case 'all':
+            return state;
+        case 'completed':
+            return state.filter((t: Todo) => t.completed);
+        case 'active':
+            return state.filter((t: Todo) => !t.completed);
+
+    }
+    return state;
+};
