@@ -13,30 +13,10 @@ export default class VisivleTodo extends React.Component<{}, {}> {
     }
 }
 
-<<<<<<< HEAD
-const getVisibileFilter = (todos: Todo[], filter: string) => {
-    switch (filter) {
-        case 'all':
-            return todos;
-        case 'completed':
-            return todos.filter((t: Todo) => t.completed);
-        case 'active':
-            return todos.filter((t: Todo) => !t.completed);
-
-    }
-    return todos;
-};
-
 const toggleTodo = (id: number) => {
     return {
         id,
         type: 'TOGGLE_TODO',
-=======
-const toggleTodo = (id: number) => {
-    return {
-        id,
-        type: 'TOGGLE_TdfsdfsdfODO',
->>>>>>> 2e0ac3e63f2ce39e953a8570da7018d684389518
     };
 };
 

@@ -10,5 +10,3 @@ const todoApp = combineReducers({
 export default todoApp;
 
 export const getVisibileFilter = (state: any, filter: string) => fromTodos.getVisibileFilter(state.todos, filter);
-
-
