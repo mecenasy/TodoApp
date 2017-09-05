@@ -1,6 +1,7 @@
 import { v4 } from 'node-uuid';
-import { Action } from 'redux';
+import { Action, combineReducers } from 'redux';
 import { Todo } from '../Types/TodoStore';
+
 type KnownAction = AddTooAction | ToggleTodoAction;
 
 interface AddTooAction {
@@ -35,27 +36,36 @@ const todo = (action: Action, state?: Todo) => {
     }
 };
 
-export const todos = (state: Todo[], action: Action) => {
+const byId = (state: any, action: Action) => {
     const incomingAction = action as KnownAction;
     if (state === undefined) {
-        state = [];
+        state = {};
     }
     switch (incomingAction.type) {
-        case 'ADD_TODO': {
+        case 'ADD_TODO':
+        case 'TOGGLE_TODO': {
             const el = todo(action);
             if (el !== undefined) {
-                return [...state, el];
+                return { ...state, [incomingAction.id]: todo(incomingAction, state[incomingAction.id]) };
             }
             return state;
         }
-        case 'TOGGLE_TODO':
-            return state.map((t) => todo(incomingAction, t));
         default: {
-
             return state;
         }
     }
 };
+const allIds = (state: Todo[], action: Action) => {
+    const incomingAction = action as KnownAction;
+    switch (action.type) {
+        case 'ADD_TODO':
+            return [...state, incomingAction.id];
+        default:
+            return state;
+    }
+};
+
+export const todos = combineReducers({byId, allIds});
 
 export const getVisibileFilter = (state: Todo[], filter: string) => {
     switch (filter) {
