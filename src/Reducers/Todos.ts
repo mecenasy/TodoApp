@@ -1,4 +1,4 @@
-import { v4 } from 'node-uuid';
+// import { v4 } from 'node-uuid';
 import { Action, combineReducers } from 'redux';
 import { Todo } from '../Types/TodoStore';
 
@@ -14,23 +14,20 @@ interface ToggleTodoAction {
     id: number,
 }
 
-const todo = (action: Action, state?: Todo) => {
+const todo = (action: Action, state: Todo) => {
     const incomingAction = action as KnownAction;
     switch (incomingAction.type) {
         case 'ADD_TODO':
             return {
                 completed: false,
-                id: v4(),
+                id: incomingAction.id,
                 text: incomingAction.text,
             };
         case 'TOGGLE_TODO':
-            if (state !== undefined) {
-                if (state.id !== incomingAction.id) {
-                    return state;
-                }
-                return { ...state, completed: !state.completed };
+            if (state.id !== incomingAction.id) {
+                return state;
             }
-            return state;
+            return { ...state, completed: !state.completed };
         default:
             return state;
     }
@@ -41,22 +38,23 @@ const byId = (state: any, action: Action) => {
     if (state === undefined) {
         state = {};
     }
+    console.log(incomingAction);
     switch (incomingAction.type) {
         case 'ADD_TODO':
         case 'TOGGLE_TODO': {
-            const el = todo(action);
-            if (el !== undefined) {
-                return { ...state, [incomingAction.id]: todo(incomingAction, state[incomingAction.id]) };
-            }
-            return state;
+            return { ...state, [incomingAction.id]: todo(incomingAction, state[incomingAction.id]) };
         }
         default: {
             return state;
         }
     }
 };
-const allIds = (state: Todo[], action: Action) => {
+const allIds = (state: any, action: Action) => {
     const incomingAction = action as KnownAction;
+    if (state === undefined) {
+        state = [];
+    }
+    console.log(incomingAction);
     switch (action.type) {
         case 'ADD_TODO':
             return [...state, incomingAction.id];
@@ -65,17 +63,19 @@ const allIds = (state: Todo[], action: Action) => {
     }
 };
 
-export const todos = combineReducers({byId, allIds});
+export const todos = combineReducers({ byId, allIds });
 
-export const getVisibileFilter = (state: Todo[], filter: string) => {
+const getAllTodos = (state: any) => state.allIds.map((id: any) => state.byId[id]);
+
+export const getVisibileFilter = (state: any, filter: string) => {
+    const allTodos = getAllTodos(state);
     switch (filter) {
         case 'all':
-            return state;
+            return allTodos;
         case 'completed':
-            return state.filter((t: Todo) => t.completed);
+            return allTodos.filter((t: Todo) => t.completed);
         case 'active':
-            return state.filter((t: Todo) => !t.completed);
-
+            return allTodos.filter((t: Todo) => !t.completed);
     }
-    return state;
+    return allTodos;
 };
