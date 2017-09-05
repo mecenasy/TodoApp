@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { Todo } from '../Types/TodoStore';
+import { getVisibileFilter } from '../Reducers';
 import TodoList from './TodoList';
-// interface IVisibleTodo {
-//     filter: string;
-// }
+
 export default class VisivleTodo extends React.Component<{}, {}> {
 
     public render() {
@@ -15,6 +13,7 @@ export default class VisivleTodo extends React.Component<{}, {}> {
     }
 }
 
+<<<<<<< HEAD
 const getVisibileFilter = (todos: Todo[], filter: string) => {
     switch (filter) {
         case 'all':
@@ -32,13 +31,19 @@ const toggleTodo = (id: number) => {
     return {
         id,
         type: 'TOGGLE_TODO',
+=======
+const toggleTodo = (id: number) => {
+    return {
+        id,
+        type: 'TOGGLE_TdfsdfsdfODO',
+>>>>>>> 2e0ac3e63f2ce39e953a8570da7018d684389518
     };
 };
 
 const mapsStateToProps = (state: any, ownProps: any) => {
     return {
         todos: getVisibileFilter(
-            state.todos,
+            state,
             ownProps.match.params.filter || 'all'),
     };
 };
