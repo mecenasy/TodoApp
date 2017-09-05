@@ -2,7 +2,7 @@
 import { Action, combineReducers } from 'redux';
 import { Todo } from '../Types/TodoStore';
 
-type KnownAction = AddTooAction | ToggleTodoAction;
+export type KnownAction = AddTooAction | ToggleTodoAction;
 
 interface AddTooAction {
     type: 'ADD_TODO',
@@ -38,7 +38,6 @@ const byId = (state: any, action: Action) => {
     if (state === undefined) {
         state = {};
     }
-    console.log(incomingAction);
     switch (incomingAction.type) {
         case 'ADD_TODO':
         case 'TOGGLE_TODO': {
@@ -54,7 +53,6 @@ const allIds = (state: any, action: Action) => {
     if (state === undefined) {
         state = [];
     }
-    console.log(incomingAction);
     switch (action.type) {
         case 'ADD_TODO':
             return [...state, incomingAction.id];
