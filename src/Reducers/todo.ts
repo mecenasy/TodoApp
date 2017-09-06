@@ -14,7 +14,6 @@ export const todo = (action: Action, state: Todo) => {
                 text: incomingAction.text,
             };
         case 'TOGGLE_TODO':
-            
             return { ...state, completed: !state.completed };
         default:
             return state;
