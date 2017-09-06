@@ -2,30 +2,47 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { toggleTodo } from '../Action/';
+import { fetchTodos } from '../Api';
 import { getVisibileFilter } from '../Reducers';
-import TodoList from './TodoList';
+import TodoList, { ITodoList } from './TodoList';
+class VisivleTodoList extends React.Component<ITodoList, {}> {
+    public componentDidMount() {
+        this.fetchDate();
+    }
 
-export default class VisivleTodo extends React.Component<{}, {}> {
+    public componentDidUpdate(prevProps: any) {
+        if (this.props.filter !== prevProps.filter) {
+            this.fetchDate();
+        }
+    }
+
     public render() {
         return (
-            <VisivleTodoList />
+            <TodoList {...this.props} />
         );
+    }
+    private fetchDate() {
+        fetchTodos(this.props.filter).then((todos) =>
+            console.log(this.props.filter, todos));
     }
 }
 
 const mapsStateToProps = (state: any, ownProps: any) => {
+    const filter = ownProps.match.params.filter || 'all';
     return {
-        todos: getVisibileFilter(state, ownProps.match.params.filter || 'all'),
+        filter,
+        todos: getVisibileFilter(state, filter),
     };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        onTodoClick: (id: number) => {dispatch(toggleTodo(id));
+        onTodoClick: (id: number) => {
+            dispatch(toggleTodo(id));
         },
     };
 };
 
-const VisivleTodoList = withRouter(connect(
+export default withRouter(connect(
     mapsStateToProps, mapDispatchToProps,
-)(TodoList));
+)(VisivleTodoList));

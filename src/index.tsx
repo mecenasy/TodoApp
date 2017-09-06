@@ -4,10 +4,9 @@ import Root from './Componet/Root';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './Store/configureStore';
-
 const store = configureStore();
 
 ReactDOM.render(
-  <Root store={store}/>,
+  <Root store={store} />,
   document.getElementById('root') as HTMLElement);
 registerServiceWorker();

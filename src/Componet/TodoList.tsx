@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Todo } from '../Types/TodoStore';
 import TodoElement from './TodoElement';
-interface ITodoList {
+
+export interface ITodoList {
     todos: Todo[],
+    filter: string
     onTodoClick: (id: any) => void,
 }
 export default class TodoList extends React.Component<ITodoList, {}> {
@@ -11,7 +13,6 @@ export default class TodoList extends React.Component<ITodoList, {}> {
             todos,
             onTodoClick,
         } = this.props;
-        console.log(todos);
         return (
             <ul>
                 {todos.map((todo: Todo) => <TodoElement key={todo.id} {...todo}  onClick={() => {onTodoClick(todos.indexOf(todo)); }}/>)}

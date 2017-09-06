@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-
+import { addTodo } from '../Action/';
 class AddTodo extends React.Component<{ dispatch: any }, {}> {
 
     public render() {
@@ -15,12 +15,4 @@ class AddTodo extends React.Component<{ dispatch: any }, {}> {
         );
     }
 }
-let nextId = 0;
-const addTodo = (text: string) => {
-    return {
-        id: nextId++,
-        text,
-        type: 'ADD_TODO',
-    };
-};
 export default connect()(AddTodo);

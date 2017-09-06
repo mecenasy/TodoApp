@@ -4,7 +4,7 @@ export interface TodosState {
 }
 
 export interface Todo {
-    id: number;
+    id: any;
     text: string;
     completed: boolean;
 }

@@ -45,7 +45,7 @@ const allIds = (state: any, action: Action) => {
 
 export const todos = combineReducers({ byId, allIds });
 
-const getAllTodos = (state: any) => state.allIds.map((id: any) => state.byId[id]);
+const getAllTodos = (state: any): Todo[] => state.allIds.map((id: number) => state.byId[id]);
 
 export const getVisibileFilter = (state: any, filter: string) => {
     const allTodos = getAllTodos(state);
@@ -56,6 +56,7 @@ export const getVisibileFilter = (state: any, filter: string) => {
             return allTodos.filter((t: Todo) => t.completed);
         case 'active':
             return allTodos.filter((t: Todo) => !t.completed);
+        default:
+            throw new Error(`Unknow filter ${filter}`);
     }
-    return allTodos;
 };
