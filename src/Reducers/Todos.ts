@@ -1,7 +1,6 @@
-// import { v4 } from 'node-uuid';
 import { Action, combineReducers } from 'redux';
 import { Todo } from '../Types/TodoStore';
-
+import { todo } from './todo';
 export type KnownAction = AddTooAction | ToggleTodoAction;
 
 interface AddTooAction {
@@ -13,25 +12,6 @@ interface ToggleTodoAction {
     type: 'TOGGLE_TODO',
     id: number,
 }
-
-const todo = (action: Action, state: Todo) => {
-    const incomingAction = action as KnownAction;
-    switch (incomingAction.type) {
-        case 'ADD_TODO':
-            return {
-                completed: false,
-                id: incomingAction.id,
-                text: incomingAction.text,
-            };
-        case 'TOGGLE_TODO':
-            if (state.id !== incomingAction.id) {
-                return state;
-            }
-            return { ...state, completed: !state.completed };
-        default:
-            return state;
-    }
-};
 
 const byId = (state: any, action: Action) => {
     const incomingAction = action as KnownAction;
@@ -48,14 +28,16 @@ const byId = (state: any, action: Action) => {
         }
     }
 };
+
 const allIds = (state: any, action: Action) => {
-    const incomingAction = action as KnownAction;
     if (state === undefined) {
         state = [];
     }
     switch (action.type) {
-        case 'ADD_TODO':
-            return [...state, incomingAction.id];
+        case 'ADD_TODO': {
+            const index = state.length;
+            return [...state, index];
+        }
         default:
             return state;
     }
