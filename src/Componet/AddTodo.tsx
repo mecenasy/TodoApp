@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { addTodo } from '../Action/';
+import { addTodo } from '../Action';
 class AddTodo extends React.Component<{ dispatch: any }, {}> {
 
     public render() {
