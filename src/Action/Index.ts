@@ -1,12 +1,15 @@
 import * as api from '../Api';
 import { Todo } from '../Types/TodoStore';
-import { AddTooAction, ReciveTodosAction, ToggleTodoAction } from './IAction';
-export const toggleTodo = (id: number): ToggleTodoAction => {
-    return {
-        id,
-        type: 'TOGGLE_TODO',
-    };
-};
+import { AddTooAction, ReciveTodosAction } from './IAction';
+// import { AddTooAction, ReciveTodosAction, ToggleTodoAction } from './IAction';
+
+// 
+// export const toggleTodo = (id: number): ToggleTodoAction => {
+//     return {
+//         id,
+//         type: 'TOGGLE_TODO',
+//     };
+// };
 
 let nextId = 0;
 export const addTodo = (text: string): AddTooAction => {

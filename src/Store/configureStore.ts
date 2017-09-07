@@ -8,7 +8,6 @@ const promise = (store: any) => (next: any) => (action: any) => {
     return next(action);
 };
 
-
 const logger = (store: any) => (next: any) => (action: any) => {
     console.group(action.type);
     console.log('prev state', store.getState());
@@ -21,7 +20,7 @@ const logger = (store: any) => (next: any) => (action: any) => {
 };
 
 const wrapDispatchWithMidleware = (store: any, middlewares: any) => {
-    middlewares.forEach((element: any) => {
+    middlewares.slice().reverse().forEach((element: any) => {
         store.dispatch = element(store)(store.dispatch);
     });
 };
