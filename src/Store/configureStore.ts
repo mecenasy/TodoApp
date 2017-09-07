@@ -1,37 +1,38 @@
 import { createStore } from 'redux';
 import todoApp from '../Reducers/';
 
-const addPromiseSupportToDispatch = (store: any) => {
-    const rawDispatch = store.dispatch;
-    return (action: any) => {
-        if (typeof action.then === 'function') {
-            return action.then(rawDispatch);
-        }
-        return rawDispatch(action);
-    };
-};
-
-const addLoggingToDispatch = (store: any) => {
-    const rawDispatch = store.dispatch;
-    return (action: any) => {
-        console.group(action.type);
-        console.log('prev state', store.getState());
-        console.log('action', action);
-        const returnValue = rawDispatch(action);
-        console.log('next state', store.getState());
-        console.groupEnd();
-        return returnValue;
-    };
-};
-const configureStore = () => {
-
-    const store = createStore(todoApp);
-    if (process.env.NODE_ENV !== 'production') {
-        store.dispatch = addLoggingToDispatch(store);
+const promise = (store: any) => (next: any) => (action: any) => {
+    if (typeof action.then === 'function') {
+        return action.then(next);
     }
+    return next(action);
+};
 
-    store.dispatch = addPromiseSupportToDispatch(store);
 
+const logger = (store: any) => (next: any) => (action: any) => {
+    console.group(action.type);
+    console.log('prev state', store.getState());
+    console.log('action', action);
+    const returnValue = next(action);
+    console.log('next state', store.getState());
+    console.groupEnd();
+    return returnValue;
+
+};
+
+const wrapDispatchWithMidleware = (store: any, middlewares: any) => {
+    middlewares.forEach((element: any) => {
+        store.dispatch = element(store)(store.dispatch);
+    });
+};
+
+const configureStore = () => {
+    const store = createStore(todoApp);
+    const middlewares = [promise];
+    if (process.env.NODE_ENV !== 'production') {
+        middlewares.push(logger);
+    }
+    wrapDispatchWithMidleware(store, middlewares);
     return store;
 };
 
