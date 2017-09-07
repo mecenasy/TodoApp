@@ -1,6 +1,16 @@
 import { createStore } from 'redux';
 import todoApp from '../Reducers/';
 
+const addPromiseSupportToDispatch = (store: any) => {
+    const rawDispatch = store.dispatch;
+    return (action: any) => {
+        if (typeof action.then === 'function') {
+            return action.then(rawDispatch);
+        }
+        return rawDispatch(action);
+    };
+};
+
 const addLoggingToDispatch = (store: any) => {
     const rawDispatch = store.dispatch;
     return (action: any) => {
@@ -16,7 +26,12 @@ const addLoggingToDispatch = (store: any) => {
 const configureStore = () => {
 
     const store = createStore(todoApp);
-    store.dispatch = addLoggingToDispatch(store);
+    if (process.env.NODE_ENV !== 'production') {
+        store.dispatch = addLoggingToDispatch(store);
+    }
+
+    store.dispatch = addPromiseSupportToDispatch(store);
+
     return store;
 };
 

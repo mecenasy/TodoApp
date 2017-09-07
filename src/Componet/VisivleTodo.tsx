@@ -2,8 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as action from '../Action/';
-import { AddTooAction, ReciveTodosAction, ToggleTodoAction } from '../Action/IAction';
-import { fetchTodos } from '../Api';
+import { AddTooAction, ToggleTodoAction } from '../Action/IAction';
 import { getVisibileFilter } from '../Reducers';
 import { Todo } from '../Types/TodoStore';
 import TodoList from './TodoList';
@@ -12,7 +11,7 @@ interface IVisivleTodoList {
     todos: Todo[],
     filter: string
     toggleTodo: (id: number) => ToggleTodoAction,
-    reciveTodos: (filter: string, response: Todo[]) => ReciveTodosAction,
+    fetchTodos: any
     addTodo: (text: string) => AddTooAction,
 }
 class VisivleTodoList extends React.Component<IVisivleTodoList, {}> {
@@ -37,10 +36,9 @@ class VisivleTodoList extends React.Component<IVisivleTodoList, {}> {
     private fetchDate() {
         const {
             filter,
-            reciveTodos,
+            fetchTodos,
         } = this.props;
-        fetchTodos(filter).then((todos) =>
-            reciveTodos(filter, todos));
+        fetchTodos(filter);
     }
 }
 

@@ -1,6 +1,6 @@
+import * as api from '../Api';
 import { Todo } from '../Types/TodoStore';
 import { AddTooAction, ReciveTodosAction, ToggleTodoAction } from './IAction';
-
 export const toggleTodo = (id: number): ToggleTodoAction => {
     return {
         id,
@@ -17,10 +17,12 @@ export const addTodo = (text: string): AddTooAction => {
     };
 };
 
-export const reciveTodos = (filter: string, response: Todo[]): ReciveTodosAction => {
+const reciveTodos = (filter: string, response: Todo[]): ReciveTodosAction => {
     return {
         filter,
         response,
         type: 'RECEIVE_TODOS',
     };
 };
+
+export const fetchTodos = (filter: string) => api.fetchTodos(filter).then((response) => reciveTodos(filter, response));
