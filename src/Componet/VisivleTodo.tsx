@@ -1,11 +1,21 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { toggleTodo } from '../Action/';
+import * as action from '../Action/';
+import { AddTooAction, ReciveTodosAction, ToggleTodoAction } from '../Action/IAction';
 import { fetchTodos } from '../Api';
 import { getVisibileFilter } from '../Reducers';
-import TodoList, { ITodoList } from './TodoList';
-class VisivleTodoList extends React.Component<ITodoList, {}> {
+import { Todo } from '../Types/TodoStore';
+import TodoList from './TodoList';
+
+interface IVisivleTodoList {
+    todos: Todo[],
+    filter: string
+    toggleTodo: (id: number) => ToggleTodoAction,
+    reciveTodos: (filter: string, response: Todo[]) => ReciveTodosAction,
+    addTodo: (text: string) => AddTooAction,
+}
+class VisivleTodoList extends React.Component<IVisivleTodoList, {}> {
     public componentDidMount() {
         this.fetchDate();
     }
@@ -17,13 +27,20 @@ class VisivleTodoList extends React.Component<ITodoList, {}> {
     }
 
     public render() {
+        const {
+            toggleTodo, ...rest,
+        } = this.props;
         return (
-            <TodoList {...this.props} />
+            <TodoList {...rest} onTodoClick={toggleTodo} />
         );
     }
     private fetchDate() {
-        fetchTodos(this.props.filter).then((todos) =>
-            console.log(this.props.filter, todos));
+        const {
+            filter,
+            reciveTodos,
+        } = this.props;
+        fetchTodos(filter).then((todos) =>
+            reciveTodos(filter, todos));
     }
 }
 
@@ -35,14 +52,14 @@ const mapsStateToProps = (state: any, ownProps: any) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        onTodoClick: (id: number) => {
-            dispatch(toggleTodo(id));
-        },
-    };
-};
+// const mapDispatchToProps = (dispatch: any) => {
+//     return {
+//         onTodoClick: (id: number) => {
+//             dispatch(action.toggleTodo(id));
+//         },
+//     };
+// };
 
 export default withRouter(connect(
-    mapsStateToProps, mapDispatchToProps,
+    mapsStateToProps, action,
 )(VisivleTodoList));

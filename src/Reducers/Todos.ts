@@ -1,17 +1,8 @@
 import { Action, combineReducers } from 'redux';
+import { AddTooAction, ToggleTodoAction } from '../Action/IAction';
 import { Todo } from '../Types/TodoStore';
 import { todo } from './todo';
 export type KnownAction = AddTooAction | ToggleTodoAction;
-
-interface AddTooAction {
-    type: 'ADD_TODO',
-    id: number,
-    text: string,
-}
-interface ToggleTodoAction {
-    type: 'TOGGLE_TODO',
-    id: number,
-}
 
 const byId = (state: any, action: Action) => {
     const incomingAction = action as KnownAction;
