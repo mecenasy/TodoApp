@@ -4,7 +4,6 @@ import TodoElement from './TodoElement';
 
 export interface ITodoList {
     todos: Todo[],
-    filter: string
     onTodoClick: (id: any) => void,
 }
 export default class TodoList extends React.Component<ITodoList, {}> {

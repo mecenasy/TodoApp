@@ -18,6 +18,10 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const fetchTodos = (filter: string) =>
     delay(500).then(() => {
+        if (Math.random() < 0.5) {
+            throw new Error('Ups wyjebało się');
+        }
+        console.log(Math.random());
         switch (filter) {
             case 'all':
                 return fakeDatabase;

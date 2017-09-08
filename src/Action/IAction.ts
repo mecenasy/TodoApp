@@ -11,8 +11,18 @@ export interface ToggleTodoAction {
     id: number,
 }
 
-export interface ReciveTodosAction {
-    type: 'RECEIVE_TODOS',
+export interface FetchTodosRequestAction {
+    type: 'FETCH_TODOS_REQUEST',
     filter: string,
-    response: Todo[]
+}
+
+export interface FetchTodosSuccessAction {
+    type: 'FETCH_TODOS_SUCCESS',
+    filter: string,
+    response: Todo[],
+}
+export interface FetchTodosFailureAction {
+    filter: string,
+    message: string,
+    type: 'FETCH_TODOS_FAILURE',
 }
