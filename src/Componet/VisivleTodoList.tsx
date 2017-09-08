@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as action from '../Action/';
 import { AddTooAction, ToggleTodoAction } from '../Action/IAction';
-import { getVisibileFilter } from '../Reducers';
+import { getIsFetching, getVisibileFilter } from '../Reducers';
 import { Todo } from '../Types/TodoStore';
 import TodoList from './TodoList';
 
@@ -12,6 +12,8 @@ interface IVisivleTodoList {
     filter: string
     toggleTodo: (id: number) => ToggleTodoAction,
     fetchTodos: any
+    isFetching: boolean
+    requestTodos: any
     addTodo: (text: string) => AddTooAction,
 }
 class VisivleTodoList extends React.Component<IVisivleTodoList, {}> {
@@ -27,17 +29,24 @@ class VisivleTodoList extends React.Component<IVisivleTodoList, {}> {
 
     public render() {
         const {
-            toggleTodo, ...rest,
+            toggleTodo,
+            todos,
+            isFetching,
         } = this.props;
+        if (isFetching && !todos.length) {
+            return <p>Loading...</p>;
+        }
         return (
-            <TodoList {...rest} onTodoClick={toggleTodo} />
+            <TodoList todos={todos} onTodoClick={toggleTodo} />
         );
     }
     private fetchDate() {
         const {
             filter,
             fetchTodos,
+            requestTodos,
         } = this.props;
+        requestTodos(filter);
         fetchTodos(filter);
     }
 }
@@ -46,17 +55,10 @@ const mapsStateToProps = (state: any, ownProps: any) => {
     const filter = ownProps.match.params.filter || 'all';
     return {
         filter,
+        isFetching: getIsFetching(state, filter),
         todos: getVisibileFilter(state, filter),
     };
 };
-
-// const mapDispatchToProps = (dispatch: any) => {
-//     return {
-//         onTodoClick: (id: number) => {
-//             dispatch(action.toggleTodo(id));
-//         },
-//     };
-// };
 
 export default withRouter(connect(
     mapsStateToProps, action,

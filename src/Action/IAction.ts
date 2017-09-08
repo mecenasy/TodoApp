@@ -16,3 +16,8 @@ export interface ReciveTodosAction {
     filter: string,
     response: Todo[]
 }
+
+export interface RequestTodosAction {
+    type: 'REQUEST_TODOS',
+    filter: string,
+}
