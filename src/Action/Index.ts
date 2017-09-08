@@ -1,7 +1,8 @@
 import * as api from '../Api';
 import { getIsFetching } from '../Reducers/createList';
-import { Todo } from '../Types/TodoStore';
-import { AddTooAction, ReciveTodosAction, RequestTodosAction, ToggleTodoAction } from './IAction';
+// import { Todo } from '../Types/TodoStore';
+import { AddTooAction, ToggleTodoAction } from './IAction';
+
 export const toggleTodo = (id: number): ToggleTodoAction => {
     return {
         id,
@@ -18,25 +19,24 @@ export const addTodo = (text: string): AddTooAction => {
     };
 };
 
-const reciveTodos = (filter: string, response: Todo[]): ReciveTodosAction => {
-    return {
-        filter,
-        response,
-        type: 'RECEIVE_TODOS',
-    };
-};
-
-const requestTodos = (filter: string): RequestTodosAction => {
-    return {
-        filter,
-        type: 'REQUEST_TODOS',
-    };
-};
-
 export const fetchTodos = (filter: string) => (dispatch: any, getState: any) => {
     if (getIsFetching(getState())) {
         return Promise.resolve;
     }
-    dispatch(requestTodos(filter));
-    return api.fetchTodos(filter).then((response) => dispatch(reciveTodos(filter, response)));
+    dispatch({
+        filter,
+        type: 'FETCH_TODOS_REQUEST',
+    });
+    return api.fetchTodos(filter).then(
+        (response) => dispatch({
+            filter,
+            response,
+            type: 'FETCH_TODOS_SUCCESS',
+        }),
+        (error) =>  dispatch({
+            filter,
+            message: error.message || 'Something went wrong',
+            type: 'FETCH_TODOS_FAILURE',
+        }),
+    );
 };

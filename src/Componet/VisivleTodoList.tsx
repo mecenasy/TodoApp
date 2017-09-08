@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as action from '../Action/';
 import { AddTooAction, ToggleTodoAction } from '../Action/IAction';
-import { getIsFetching, getVisibileFilter } from '../Reducers';
 import { Todo } from '../Types/TodoStore';
+import FetchError from './FetchError';
 import TodoList from './TodoList';
+import { getIsFetching, getVisibileFilter, getErrorMessage } from '../Reducers';
 
 interface IVisivleTodoList {
     todos: Todo[],
@@ -14,6 +15,7 @@ interface IVisivleTodoList {
     fetchTodos: any
     isFetching: boolean
     requestTodos: any
+    errorMessage: string
     addTodo: (text: string) => AddTooAction,
 }
 class VisivleTodoList extends React.Component<IVisivleTodoList, {}> {
@@ -32,9 +34,16 @@ class VisivleTodoList extends React.Component<IVisivleTodoList, {}> {
             toggleTodo,
             todos,
             isFetching,
+            errorMessage,
         } = this.props;
         if (isFetching && !todos.length) {
             return <p>Loading...</p>;
+        }
+        if (errorMessage && !todos.length) {
+            return (
+                <FetchError message={errorMessage} onReady={this.fetchDate()} />
+
+            );
         }
         return (
             <TodoList todos={todos} onTodoClick={toggleTodo} />
@@ -54,6 +63,7 @@ const mapsStateToProps = (state: any, ownProps: any) => {
     return {
         filter,
         isFetching: getIsFetching(state, filter),
+        errorMessage: getErrorMessage(state, filter),
         todos: getVisibileFilter(state, filter),
     };
 };

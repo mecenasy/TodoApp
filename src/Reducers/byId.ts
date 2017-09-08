@@ -1,11 +1,11 @@
-import { ReciveTodosAction } from '../Action/IAction';
+import { FetchTodosSuccessAction } from '../Action/IAction';
 
-export const byId = (state: any, action: ReciveTodosAction) => {
+export const byId = (state: any, action: FetchTodosSuccessAction) => {
     if (state === undefined) {
         state = {};
     }
     switch (action.type) {
-        case 'RECEIVE_TODOS':
+        case 'FETCH_TODOS_SUCCESS':
             const nextState = { ...state };
             action.response.forEach((todo) => { nextState[todo.id] = todo; });
             return nextState;
