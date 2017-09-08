@@ -44,9 +44,7 @@ class VisivleTodoList extends React.Component<IVisivleTodoList, {}> {
         const {
             filter,
             fetchTodos,
-            requestTodos,
         } = this.props;
-        requestTodos(filter);
         fetchTodos(filter);
     }
 }

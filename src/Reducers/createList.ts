@@ -35,4 +35,4 @@ export const createList = (filter: string) => {
 
 export const getIds = (state: any) => state.ids;
 
-export const gerIsFetching = (state: any) => state.isFatching;
+export const getIsFetching = (state: any) => state.isFatching;

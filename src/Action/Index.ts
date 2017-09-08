@@ -1,4 +1,5 @@
 import * as api from '../Api';
+import { getIsFetching } from '../Reducers/createList';
 import { Todo } from '../Types/TodoStore';
 import { AddTooAction, ReciveTodosAction, RequestTodosAction, ToggleTodoAction } from './IAction';
 export const toggleTodo = (id: number): ToggleTodoAction => {
@@ -25,11 +26,17 @@ const reciveTodos = (filter: string, response: Todo[]): ReciveTodosAction => {
     };
 };
 
-export const requestTodos = (filter: string): RequestTodosAction => {
+const requestTodos = (filter: string): RequestTodosAction => {
     return {
         filter,
         type: 'REQUEST_TODOS',
     };
 };
 
-export const fetchTodos = (filter: string) => api.fetchTodos(filter).then((response) => reciveTodos(filter, response));
+export const fetchTodos = (filter: string) => (dispatch: any, getState: any) => {
+    if (getIsFetching(getState())) {
+        return Promise.resolve;
+    }
+    dispatch(requestTodos(filter));
+    return api.fetchTodos(filter).then((response) => dispatch(reciveTodos(filter, response)));
+};
