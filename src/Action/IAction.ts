@@ -21,6 +21,11 @@ export interface FetchTodosSuccessAction {
     filter: string,
     response: Todo[],
 }
+export interface AddTodoSuccessAction {
+    type: 'ADD_TODO_SUCCESS',
+    filter: string,
+    response: Todo,
+}
 export interface FetchTodosFailureAction {
     filter: string,
     message: string,

@@ -12,9 +12,9 @@ import { todos } from '../Reducers/';
 
 const configureStore = () => {
     const middlewares = [thunk];
-    // if (process.envds.NODE_ENV !== 'production') {
-    //     middlewares.push(createLogger());
-    // }
+   //  if (process.env.NODE_ENV !== 'production') {
+   //      middlewares.push(createLogger());
+   //  }
     const store = createStore(todos, applyMiddleware(...middlewares));
     return store;
 };
