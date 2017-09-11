@@ -11,12 +11,12 @@ import { todos } from '../Reducers/';
 // };
 
 const configureStore = () => {
-    const middlewares = [thunk];
+   const middlewares = [thunk];
    //  if (process.env.NODE_ENV !== 'production') {
    //      middlewares.push(createLogger());
    //  }
-    const store = createStore(todos, applyMiddleware(...middlewares));
-    return store;
+   const store = createStore(todos, applyMiddleware(...middlewares));
+   return store;
 };
 
 export default configureStore;

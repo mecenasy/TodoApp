@@ -1,6 +1,6 @@
 import { v4 } from 'node-uuid';
-import { Todo } from '../Types/TodoStore';
-const fakeDatabase: Todo[] = [{
+import { Todo, Todos } from '../Types/TodoStore';
+const cos: Todo[] = [{
    completed: true,
    id: v4(),
    text: 'hey',
@@ -14,6 +14,7 @@ const fakeDatabase: Todo[] = [{
    text: 'let’s go',
 }];
 
+const fakeDatabase: Todos = {todos: cos};
 export const addTodo = (text: string) =>
    delay(500).then(() => {
       const todo = {
@@ -21,13 +22,13 @@ export const addTodo = (text: string) =>
          id: v4(),
          text,
       };
-      fakeDatabase.push(todo);
+      fakeDatabase.todos.push(todo);
       return todo;
    });
 
 export const toggleTodo = (id: any) =>
    delay(500).then(() => {
-      const todo = fakeDatabase.find((t) => t.id === id);
+      const todo = fakeDatabase.todos.find((t) => t.id === id);
       if (todo !== undefined) {
          todo.completed = !todo.completed;
       }
@@ -40,11 +41,11 @@ export const fetchTodos = (filter: string) =>
    delay(500).then(() => {
       switch (filter) {
          case 'all':
-            return fakeDatabase;
+            return fakeDatabase.todos;
          case 'completed':
-            return fakeDatabase.filter((t: Todo) => t.completed);
+            return fakeDatabase.todos.filter((t: Todo) => t.completed);
          case 'active':
-            return fakeDatabase.filter((t: Todo) => !t.completed);
+            return fakeDatabase.todos.filter((t: Todo) => !t.completed);
          default:
             throw new Error(`Unknow filter: ${filter}`);
       }
