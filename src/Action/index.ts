@@ -1,14 +1,16 @@
 import * as api from '../Api';
 import { getIsFetching } from '../Reducers/createList';
-import { ToggleTodoAction } from './IAction';
 import { normalize } from 'normalizr';
 import * as Schema from '../Schema/schima';
 
-export const toggleTodo = (id: number): ToggleTodoAction => {
-   return {
-      id,
-      type: 'TOGGLE_TODO',
-   };
+export const toggleTodo = (id: any) => (dispatch: any) => {
+   api.toggleTodo(id).then((response) => {
+      console.log(id);
+      dispatch({
+         type: 'TOGGLE_TODO_SUCCESS',
+         response: normalize(response, Schema.todo),
+      });
+   });
 };
 
 export const addTodo = (text: string) => (dispatch: any) =>

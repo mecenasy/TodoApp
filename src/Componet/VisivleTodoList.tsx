@@ -2,18 +2,18 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as action from '../Action';
-import { ToggleTodoAction } from '../Action/IAction';
-import { Todo } from '../Types/TodoStore';
+// import { ToggleTodoAction } from '../Action/IAction';
+// import { Todo } from '../Types/TodoStore';
 import FetchError from './FetchError';
 import TodoList from './TodoList';
 import { getIsFetching, getVisibileFilter, getErrorMessage } from '../Reducers';
 
 interface IVisivleTodoList {
-   todos: Todo[],
-   filter: string
-   toggleTodo: (id: number) => ToggleTodoAction,
+   todos: any,
+   filter: any
+   toggleTodo: (id: number) => any,
    fetchTodos: any
-   isFetching: boolean
+   isFetching: any
    requestTodos: any
    errorMessage: string
    addTodo: (text: string) => any,

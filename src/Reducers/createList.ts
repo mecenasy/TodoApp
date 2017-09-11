@@ -1,14 +1,22 @@
 import { combineReducers } from 'redux';
 import { FetchTodosFailureAction, FetchTodosRequestAction, FetchTodosSuccessAction } from '../Action/IAction';
-type KnowAction = FetchTodosFailureAction | FetchTodosRequestAction | FetchTodosSuccessAction ;
+type KnowAction = FetchTodosFailureAction | FetchTodosRequestAction | FetchTodosSuccessAction;
 
 export const createList = (filter: string) => {
+   // const handleToggle = (state: any, action: any) => {
+   //    const { result: toggleId, entities } = action.response;
+   //    const { complited } = entities.todos[toggleId];
+   //    const shouldRemove = ((complited && filter === 'active') || !complited && filter === 'complited');
+   //    return shouldRemove ? state.filter((id: any) => id !== toggleId) : state;
+   // };
    const ids = (state = [], action: any) => {
       switch (action.type) {
          case 'FETCH_TODOS_SUCCESS':
             return action.filter === filter ? action.response.result : state;
          case 'ADD_TODO_SUCCESS':
             return action.filter !== 'complited' ? [...state, action.response.result] : state;
+         // case 'TOGGLE_TODO_SUCCESS':
+         //    return handleToggle(state, action);
          default:
             return state;
       }

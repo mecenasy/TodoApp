@@ -14,7 +14,7 @@ export default class TodoList extends React.Component<ITodoList, {}> {
         } = this.props;
         return (
             <ul>
-                {todos.map((todo: Todo) => <TodoElement key={todo.id} {...todo}  onClick={() => {onTodoClick(todos.indexOf(todo)); }}/>)}
+                {todos.map((todo: Todo) => <TodoElement key={todo.id} {...todo}  onClick={() => {onTodoClick(todo.id); }}/>)}
             </ul>
         );
     }
