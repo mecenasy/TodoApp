@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
-import { FetchTodosFailureAction, FetchTodosRequestAction, FetchTodosSuccessAction, AddTodoSuccessAction } from '../Action/IAction';
-type KnowAction = FetchTodosFailureAction | FetchTodosRequestAction | FetchTodosSuccessAction | AddTodoSuccessAction;
+import { FetchTodosFailureAction, FetchTodosRequestAction, FetchTodosSuccessAction } from '../Action/IAction';
+type KnowAction = FetchTodosFailureAction | FetchTodosRequestAction | FetchTodosSuccessAction ;
 
 export const createList = (filter: string) => {
-   const ids = (state = [], action: KnowAction) => {
+   const ids = (state = [], action: any) => {
       switch (action.type) {
          case 'FETCH_TODOS_SUCCESS':
-            return action.filter === filter ? action.response.map((todo) => todo.id) : state;
+            return action.filter === filter ? action.response.result : state;
          case 'ADD_TODO_SUCCESS':
-            return action.filter !== 'complited' ? [...state, action.response.id] : state;
+            return action.filter !== 'complited' ? [...state, action.response.result] : state;
          default:
             return state;
       }
