@@ -2,19 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as action from '../Action';
-// import { ToggleTodoAction } from '../Action/IAction';
-// import { Todo } from '../Types/TodoStore';
+import { Todo } from '../Types/TodoStore';
 import FetchError from './FetchError';
 import TodoList from './TodoList';
 import { getIsFetching, getVisibileFilter, getErrorMessage } from '../Reducers';
 
 interface IVisivleTodoList {
-   todos: any,
-   filter: any
-   toggleTodo: (id: number) => any,
+   todos: Todo[],
+   filter: string
+   toggleTodo: (id: string) => any,
    fetchTodos: any
-   isFetching: any
-   requestTodos: any
+   isFetching: boolean
    errorMessage: string
    addTodo: (text: string) => any,
 }
@@ -54,6 +52,7 @@ class VisivleTodoList extends React.Component<IVisivleTodoList, {}> {
          filter,
          fetchTodos,
         } = this.props;
+
       fetchTodos(filter);
    }
 }

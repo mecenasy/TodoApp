@@ -3,7 +3,7 @@ import { getIsFetching } from '../Reducers/createList';
 import { normalize } from 'normalizr';
 import * as Schema from '../Schema/schima';
 
-export const toggleTodo = (id: any) => (dispatch: any) => {
+export const toggleTodo = (id: string) => (dispatch: any) => {
    api.toggleTodo(id).then((response) => {
       console.log(id);
       dispatch({
