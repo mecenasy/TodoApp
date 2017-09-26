@@ -1,5 +1,5 @@
 import { applyMiddleware, createStore } from 'redux';
-// import { createLogger } from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import { todos } from '../Reducers/';
 
@@ -9,13 +9,13 @@ import { todos } from '../Reducers/';
 //     // console.log(action);
 //     typeof action === 'function' ? action(store.dispatrch) : next(action);
 // };
-
+const logger = createLogger();
 const configureStore = () => {
    const middlewares = [thunk];
    //  if (process.env.NODE_ENV !== 'production') {
    //      middlewares.push(createLogger());
    //  }
-   const store = createStore(todos, applyMiddleware(...middlewares));
+   const store = createStore(todos, applyMiddleware(...middlewares, logger));
    return store;
 };
 

@@ -5,7 +5,6 @@ import * as Schema from '../Schema/schima';
 
 export const toggleTodo = (id: string) => (dispatch: any) => {
    api.toggleTodo(id).then((response) => {
-      console.log(id);
       dispatch({
          type: 'TOGGLE_TODO_SUCCESS',
          response: normalize(response, Schema.todo),

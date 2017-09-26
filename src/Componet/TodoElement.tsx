@@ -7,7 +7,7 @@ interface ITodoElement {
     completed: boolean;
     onClick: () => void;
 }
-export default class TodoElement extends React.Component<ITodoElement, {}> {
+export default class TodoElement extends React.PureComponent<ITodoElement, {}> {
     public render() {
         const {
             completed,
