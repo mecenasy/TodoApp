@@ -11,11 +11,13 @@ import { todos } from '../Reducers/';
 // };
 const logger = createLogger();
 const configureStore = () => {
-   const middlewares = [thunk];
-   //  if (process.env.NODE_ENV !== 'production') {
-   //      middlewares.push(createLogger());
-   //  }
-   const store = createStore(todos, applyMiddleware(...middlewares, logger));
+   const middlewares = [];
+   middlewares.push(thunk);
+
+   if (process.env.NODE_ENV !== 'production') {
+      middlewares.push(logger);
+   }
+   const store = createStore(todos, applyMiddleware(...middlewares));
    return store;
 };
 
