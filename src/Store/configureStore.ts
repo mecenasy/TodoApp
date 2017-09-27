@@ -1,4 +1,5 @@
-import { applyMiddleware, createStore } from 'redux';
+
+import { applyMiddleware, createStore, compose } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import { todos } from '../Reducers/';
@@ -9,15 +10,27 @@ import { todos } from '../Reducers/';
 //     // console.log(action);
 //     typeof action === 'function' ? action(store.dispatrch) : next(action);
 // };
-const logger = createLogger();
-const configureStore = () => {
-   const middlewares = [];
-   middlewares.push(thunk);
+// połączenie z dev toolsami
 
-   if (process.env.NODE_ENV !== 'production') {
-      middlewares.push(logger);
-   }
-   const store = createStore(todos, applyMiddleware(...middlewares));
+const windowIfDefined = typeof window === 'undefined' ? null : window as any;
+const devToolsExtension = windowIfDefined && windowIfDefined.devToolsExtension;
+
+const logger = createLogger();
+
+const middlewares = [];
+
+middlewares.push(thunk);
+
+if (process.env.NODE_ENV !== 'production') {
+   middlewares.push(logger);
+}
+
+const composedMiddlewares = compose(
+   applyMiddleware(...middlewares),
+   devToolsExtension ? devToolsExtension() : (next: any) => next,
+);
+const configureStore = () => {
+   const store = createStore(todos, composedMiddlewares);
    return store;
 };
 
