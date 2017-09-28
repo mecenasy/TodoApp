@@ -1,0 +1,62 @@
+{
+   "extends": [
+      "tslint:latest",
+      "tslint-react",
+      // "tslint-immutable",
+      "tslint-eslint-rules"
+   ],
+   //TODO: tymczasowe do czasu rozwiązania: https://github.com/palantir/tslint/issues/2569
+   // nie działa chwilowo przestawione w settings.json dla vscode alwaysShowRuleFailuresAsWarnings
+   "defaultSeverity": "warn",
+   "rules": {
+      "indent": [
+         true,
+         "spaces"
+      ],
+      "quotemark": [
+         true,
+         "single",
+         "jsx-double"
+      ],
+      "no-var-requires": false,
+      "ordered-imports": false,
+      "member-ordering": [
+         false
+      ],
+      "object-literal-sort-keys": false,
+      "no-shadowed-variable": false,
+      "no-console": [
+         false
+      ],
+      "jsx-alignment": [
+         true
+      ],
+      //WŁASNE
+      "interface-name": false,
+      "interface-over-type-literal": true,
+      "max-line-length": false,
+      "arrow-parens": false,
+      "semicolon": [
+         true,
+         "always"
+      ], // to wyłącza czepianie się o nadmiarowe średniki
+      "no-object-literal-type-assertion": false, // to wyłącza zakaz robienia rzutowania "{ ... } as JakisTyp"
+      "no-submodule-imports": false // to wyłącza zakaz robienia "import ... from 'biblioteka/podfolder';"
+      // // tslint-immutable HARDKOR!!!
+      // "typedef": [
+      //    true,
+      //    "call-signature"
+      // ],
+      // // Immutability rules
+      // This is just as effective as using Object.freeze() to prevent mutations in your Redux reducers. However the readonly modifier has no run-time cost, and is enforced at compile time. A good alternative to object mutation is to use the ES2016 object spread syntax that was added in typescript 2.1:
+      // "readonly-keyword": true,
+      // "readonly-array": true
+      // "no-let": true
+      // "no-object-mutation": true
+      // // Functional style rules
+      // // "no-this": true,
+      // // "no-class": true,
+      // // "no-mixed-interface": true
+      // //"no-expression-statement": true,
+   }
+}

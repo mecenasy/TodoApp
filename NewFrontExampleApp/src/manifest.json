@@ -1,0 +1,33 @@
+{
+  "name": "X-Kom Starter App",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon",
+      "density": 1.0
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "96x96",
+      "type": "image/x-icon",
+      "density": 2.0
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "144x144",
+      "type": "image/x-icon",
+      "density": 3.0
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "192x192",
+      "type": "image/x-icon",
+      "density": 4.0
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF"
+}

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter app reducers should return default state 1`] = `Array []`;
+
+exports[`Counter app reducers should return default state 2`] = `
+Object {
+  "count": 0,
+  "id": 0,
+  "name": "",
+}
+`;
